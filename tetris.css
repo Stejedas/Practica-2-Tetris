@@ -3,3 +3,42 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: #C6CFA2;
+    flex-direction: column;
+}
+.boardBlock{
+    width: 300px;
+    height: 600px;
+    border: 1px solid black;
+    
+    display: grid;
+        grid-template-columns: repeat(10, 28px);
+        grid-template-rows: repeat(20, 28px);
+        grid-auto-flow: row;
+        row-gap: 2px;
+        column-gap: 2px;
+}
+.img_tetris{
+    width: 300px;
+    height: 200px;
+}
+
+.drawBoard{
+    margin: 2px;
+    border: 4px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    opacity: 50%;
+
+
+}
+.div_inside{
+    background-color: grey;
+    width: 9px;
+    height: 9px;
+}
