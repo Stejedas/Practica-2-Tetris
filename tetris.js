@@ -7,19 +7,14 @@ const board_height = 20;
 // FUNCION generateBoardBlock() //
 // función sin parámetros de entrada que genera y devuelve la estructura HTML que representa un bloque de un tablero.
 
-function generateBoardBlock(w,h) {
-    const div_drawBoard = document.createElement('div');
-    div_drawBoard.classList.add('drawBoard');
-    div_drawBoard.classList.add(`${w},${h}`);
-    const board_Block = document.getElementById('board_Block')
-    board_Block.appendChild(div_drawBoard);
+function generateBoardBlock(ind) {
 
-    const div_inside = document.createElement('div');
-    div_inside.classList.add('div_inside');
-    div_drawBoard.appendChild(div_inside);
     }
 
 
+/**
+ * drawBoard(containerClass, width, heigth): función que genera dentro del contenedor definido en containerClass (string) todos los bloques de hijos necesarios para cumplir con el width (number) y el height (number). Por ejemplo si tenemos 10 de width y 20 de height tendrá que generar 200 bloques de tablero dentro del contenedor. Esta función la podremos utilizar para pintar tanto el board general como el mini-board de previsualización de la siguiente pieza
+ */
 function drawBoard(containerClass, width, heigth) {
 
 
@@ -27,32 +22,40 @@ function drawBoard(containerClass, width, heigth) {
     board_Block.setAttribute('id','board_Block')
     board_Block.classList.add('boardBlock')
     document.body.appendChild(board_Block);
+    for(let i = 0; i < width*heigth; i++ ){
+        
+        const div_drawBoard = document.createElement('div');
+        div_drawBoard.classList.add('drawBoard');
+        div_drawBoard.classList.add(`${containerClass}${i}`);
+        const board_Block = document.getElementById('board_Block')
+        board_Block.appendChild(div_drawBoard);
+    
+        const div_inside = document.createElement('div');
+        div_inside.classList.add('div_inside');
+        div_drawBoard.appendChild(div_inside);    
 
-    for(let w = 0; w < width; w++){
-        for(let h = 0; h < heigth; h++ ){
-            generateBoardBlock(w,h); 
             }
         }
-};
+;
 
 // pintamos la tabla //
-drawBoard('clase', board_width, board_height);
+drawBoard('Grande', board_width, board_height);
 
+const variable = document.querySelectorAll('.drawBoard');
 
-
-
+console.log(variable)
 
 // TETROMINOES //
 
 const tetromino_I = [
+    [00, 01, 02 , 03],
+    [1, board_width+1, board_width*2+1, board_width*3+1],
     [0, 1, 2 , 3],
-    [board_width, board_width+1, board_width*2+1, board_width*3+1],
-    [0, 1, 2 , 3],
-    [board_width, board_width+1, board_width*2+1, board_width*3+1]
+    [1, board_width+1, board_width*2+1, board_width*3+1]
 ]
 
 const tetromino_L = [
-    [1,2,board_width+1,board_width*2+1],
+    [01,02,board_width+1,board_width*2+1],
     [board_width,board_width+1,board_width+2,board_width*2+2],
     [1,board_width+1,board_width*2+1,board_width*2],
     [board_width,board_width*2,board_height*2+1,board_width*2+2]
@@ -66,7 +69,7 @@ const tetromino_S = [
 ]
 
 const tetromino_T = [
-    [1,board_width,board_width+1,board_width+2],
+    [01,board_width,board_width+1,board_width+2],
     [1,board_width+1,board_width*2+1,board_width+2],
     [board_width,board_width+1,board_width+2,board_width*2+1],
     [1,board_width+1,board_width*2+1,board_width]
@@ -87,7 +90,7 @@ const tetromino_J = [
 ]
 
 const tetromino_0 =[
-    [0,1,board_width,board_width+1],
+    [00,01,board_width,board_width+1],
     [0,1,board_width,board_width+1],
     [0,1,board_width,board_width+1],
     [0,1,board_width,board_width+1],
@@ -97,36 +100,44 @@ const allTetrominoes = [tetromino_0,tetromino_I,tetromino_J,tetromino_L,tetromin
 
  
 
-const variable = document.querySelectorAll('.drawBoard');
 
 
-console.log(variable[0]);
-console.log(variable[1]);
-console.log(variable[2]);
-console.log(variable[3]);
 
-variable.forEach( e => {
 
-})
+// variable.forEach( e => { })
 
-let currentPosition = 4; //
+let currentPosition = 0;
 let currentRotation = 0;
-let random = Math.floor(Math.random() * 7);
+let random = Math.floor(Math.random()*7)
 
 let currentTetrominoe;
 
-function generateRandomTetrominoe(){
-    let tetromine = {
+function generateRandomTetromine() {
+   
+
+    let RandomTetrominoe = {
+        
         positionAtTetrominoeList: random,
-       
         piece: allTetrominoes[random],
-        position: 4,
+        position: Math.floor(board_width/2),
         rotation: 0
     };
-    return currentTetrominoe = tetromine
+
+    return currentTetrominoe = RandomTetrominoe;
+ 
 }
 
 
-generateRandomTetrominoe();
-console.log(currentTetrominoe)
-generateRandomTetrominoe()
+function drawTetrominoeInMainBoard(){
+    const tetromino = generateRandomTetromine();
+    console.log(tetromino)
+    tetromino.piece[tetromino.rotation].forEach(e=> {
+        console.log(e)
+        
+        const ficha = document.querySelector(`.Grande${e}`)
+        ficha.classList.add('dark')
+    
+    })
+
+}
+drawTetrominoeInMainBoard()
