@@ -48,14 +48,14 @@ console.log(variable)
 // TETROMINOES //
 
 const tetromino_I = [
-    [00, 01, 02 , 03],
+    [0, 1, 2 , 3],
     [1, board_width+1, board_width*2+1, board_width*3+1],
     [0, 1, 2 , 3],
     [1, board_width+1, board_width*2+1, board_width*3+1]
 ]
 
 const tetromino_L = [
-    [01,02,board_width+1,board_width*2+1],
+    [0,1,2,board_width],
     [board_width,board_width+1,board_width+2,board_width*2+2],
     [1,board_width+1,board_width*2+1,board_width*2],
     [board_width,board_width*2,board_height*2+1,board_width*2+2]
@@ -69,7 +69,7 @@ const tetromino_S = [
 ]
 
 const tetromino_T = [
-    [01,board_width,board_width+1,board_width+2],
+    [1,board_width,board_width+1,board_width+2],
     [1,board_width+1,board_width*2+1,board_width+2],
     [board_width,board_width+1,board_width+2,board_width*2+1],
     [1,board_width+1,board_width*2+1,board_width]
@@ -90,7 +90,7 @@ const tetromino_J = [
 ]
 
 const tetromino_0 =[
-    [00,01,board_width,board_width+1],
+    [0,1,board_width,board_width+1],
     [0,1,board_width,board_width+1],
     [0,1,board_width,board_width+1],
     [0,1,board_width,board_width+1],
@@ -98,7 +98,7 @@ const tetromino_0 =[
 
 const allTetrominoes = [tetromino_0,tetromino_I,tetromino_J,tetromino_L,tetromino_S,tetromino_T,tetromino_Z]
 
- 
+ console.log(allTetrominoes)
 
 
 
@@ -106,38 +106,54 @@ const allTetrominoes = [tetromino_0,tetromino_I,tetromino_J,tetromino_L,tetromin
 
 // variable.forEach( e => { })
 
-let currentPosition = 0;
+let currentPosition = 4;
 let currentRotation = 0;
-let random = Math.floor(Math.random()*7)
+
 
 let currentTetrominoe;
 
 function generateRandomTetromine() {
-   
+    let random = Math.floor(Math.random()*allTetrominoes.length)
 
     let RandomTetrominoe = {
-        
-        positionAtTetrominoeList: random,
+        positionAtTetrominoeList: (random),
         piece: allTetrominoes[random],
         position: Math.floor(board_width/2),
         rotation: 0
     };
-
+    console.log(RandomTetrominoe);
     return currentTetrominoe = RandomTetrominoe;
  
 }
 
 
 function drawTetrominoeInMainBoard(){
-    const tetromino = generateRandomTetromine();
-    console.log(tetromino)
-    tetromino.piece[tetromino.rotation].forEach(e=> {
+    generateRandomTetromine();
+    
+    console.log(currentTetrominoe)
+    currentTetrominoe.piece[3].forEach(e=> {
+
         console.log(e)
         
-        const ficha = document.querySelector(`.Grande${e}`)
+        const ficha = document.querySelector(`.Grande${e+currentPosition}`)
         ficha.classList.add('dark')
-    
     })
-
 }
 drawTetrominoeInMainBoard()
+
+function undrawTetrominoeInMainBoard(){
+    const undraw = document.querySelectorAll('.dark')
+    undraw.forEach( e => e.classList.remove('dark'));
+}
+
+
+function moveDown(){
+    undrawTetrominoeInMainBoard(); 
+
+    currentPosition+=board_width;
+
+    drawTetrominoeInMainBoard()
+}
+
+setInterval(moveDown, 500);
+debugger;
