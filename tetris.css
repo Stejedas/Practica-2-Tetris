@@ -42,3 +42,8 @@ body{
     width: 9px;
     height: 9px;
 }
+
+.dark{
+    opacity: 1;
+    background-color: darkgrey;
+}
