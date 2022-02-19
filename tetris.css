@@ -47,3 +47,8 @@ body{
     opacity: 1;
     background-color: darkgrey;
 }
+
+.fixed_tab{
+    opacity: 1;
+    background-color: rgb(70, 70, 70);
+}
